@@ -63,7 +63,7 @@ public class NatOrderActivity extends BaseActivity {
     }
 
     /**
-     * 用户信息
+     * 一键预约
      */
     private void natOrderQuick() {
         HashMap<String, Object> params = new HashMap<>();
