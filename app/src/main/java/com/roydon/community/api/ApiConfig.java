@@ -5,11 +5,11 @@ public class ApiConfig {
     public static final int PAGE_SIZE = 10;
     public static final int PAGE_SIZE_20 = 20;
 
-    public static final String BASE_URl = "http://106.14.105.101:8088";
-//    public static final String BASE_URl = "http://192.168.0.101:8088";
-//    public static final String BASE_URl = "http://192.168.68.179:8088";
+        public static final String BASE_URl = "http://106.14.105.101:8088";
+//    public static final String BASE_URl = "http://192.168.109.13:8088";
+    //    public static final String BASE_URl = "http://192.168.68.179:8088";
     public static final String WS_URl = "ws://106.14.105.101:8088";
-//    public static final String WS_URl = "ws://192.168.0.101:8088";
+//    public static final String WS_URl = "ws://192.168.109.13:8088";
 //    public static final String WS_URl = "ws://192.168.68.179:8088";
 
     /**
@@ -107,6 +107,12 @@ public class ApiConfig {
      * 核酸预约
      */
     public static final String NAT_ORDER_QUICK = "/epidemic/nat/order/quick"; // quick
+
+    /**
+     * 体温上报
+     */
+    public static final String TEMPERATURE_REPORT = "/epidemic/temperature/report"; // 上报
+    public static final String TEMPERATURE_REPORT_HISTORY_MY = "/epidemic/temperature/report/mine_list"; // 我的上报记录
 
     /**
      * 功能反馈
