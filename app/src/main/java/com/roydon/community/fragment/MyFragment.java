@@ -33,6 +33,7 @@ import com.roydon.community.activity.InoculationHistoryActivity;
 import com.roydon.community.activity.MessageActivity;
 import com.roydon.community.activity.NatOrderActivity;
 import com.roydon.community.activity.SettingActivity;
+import com.roydon.community.activity.TemperatureReportActivity;
 import com.roydon.community.activity.UserAddressActivity;
 import com.roydon.community.activity.UserInfoActivity;
 import com.roydon.community.activity.UserOrderActivity;
@@ -70,7 +71,7 @@ public class MyFragment extends BaseFragment {
     // top-bar
     private ImageView ivSetting, ivShare, ivTheme;
     // 订单栏功能
-    private LinearLayout llUserOrder, llNatOrder;
+    private LinearLayout llUserOrder, llNatOrder,llEpidemicTemperature;
     private RelativeLayout rlUserAddress, rlAccessRecord, rlHotline, rlHealthCode, rlInoculationHistoryReport, rlAddressSelecter, rlWebview, rlFeedback;
 
     // 测试功能区
@@ -129,6 +130,7 @@ public class MyFragment extends BaseFragment {
 
         // 疫情防控
         llNatOrder = mRootView.findViewById(R.id.ll_nat_order);
+        llEpidemicTemperature = mRootView.findViewById(R.id.ll_epidemic_temperature);
 
         //功能反馈
         rlFeedback = mRootView.findViewById(R.id.rl_feedback);
@@ -229,10 +231,17 @@ public class MyFragment extends BaseFragment {
         llUserOrder.setOnClickListener(v -> {
             navigateTo(UserOrderActivity.class);
         });
+        // 核酸预约
         llNatOrder.setOnClickListener(v -> {
             Bundle bundle = new Bundle();
             bundle.putSerializable(APPUSER, appUser);
             navigateToWithBundle(NatOrderActivity.class, bundle);
+        });
+        //体温上报
+        llEpidemicTemperature.setOnClickListener(v->{
+            Bundle bundle = new Bundle();
+            bundle.putSerializable(APPUSER, appUser);
+            navigateToWithBundle(TemperatureReportActivity.class, bundle);
         });
         rlMessage.setOnClickListener(v -> {
             navigateTo(MessageActivity.class);
