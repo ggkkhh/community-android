@@ -442,6 +442,7 @@
 
                     <LinearLayout
                         android:layout_width="0dp"
+                        android:id="@+id/ll_epidemic_temperature"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
                         android:orientation="vertical"
@@ -451,13 +452,13 @@
                             android:layout_width="match_parent"
                             android:layout_height="@dimen/icon_main_size"
                             android:padding="2dp"
-                            android:src="@mipmap/icon_mall_refund" />
+                            android:src="@mipmap/icon_access_report" />
 
                         <TextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:gravity="center_horizontal"
-                            android:text="退款"
+                            android:text="体温上报"
                             android:textColor="@color/black"
                             android:textSize="@dimen/font_second_size" />
 

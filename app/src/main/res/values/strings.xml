@@ -85,6 +85,9 @@
     <!-- 通用的 -->
     <string name="common_loading">加载中&#8230;</string>
 
+    <string name="common_point">.</string>
+    <string name="common_c">℃</string>
+
     <string name="common_unknown_error">未知错误</string>
 
     <string name="common_confirm">确定</string>
@@ -176,5 +179,14 @@
 
     <!-- 功能反馈 -->
     <string name="feedback_success">反馈成功</string>
+
+    <!-- 日期对话框 -->
+    <string name="date_title">请选择日期</string>
+
+    <!-- 时间对话框 -->
+    <string name="time_title">请选择时间</string>
+
+    <!-- 温度对话框 -->
+    <string name="temperature_title">请选择体温</string>
 
 </resources>
