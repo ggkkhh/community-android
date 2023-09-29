@@ -3,11 +3,9 @@ package com.roydon.community.api;
 import static android.content.Context.MODE_PRIVATE;
 
 import android.content.Context;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.util.Log;
 
-import com.roydon.community.activity.LoginActivity;
 import com.roydon.community.constants.Constants;
 import com.roydon.community.constants.HttpStatus;
 import com.roydon.community.utils.string.StringUtil;
@@ -230,8 +228,8 @@ public class Api {
                         JSONObject jsonObject = new JSONObject(result);
                         int code = (int) jsonObject.get("code");
                         if (code == HttpStatus.UNAUTHORIZED) {
-                            Intent in = new Intent(context, LoginActivity.class);
-                            context.startActivity(in);
+//                            Intent in = new Intent(context, LoginActivity.class);
+//                            context.startActivity(in);
                         }
                     } catch (JSONException e) {
                         e.printStackTrace();
@@ -273,8 +271,8 @@ public class Api {
                         JSONObject jsonObject = new JSONObject(result);
                         int code = (int) jsonObject.get("code");
                         if (code == HttpStatus.UNAUTHORIZED) {
-                            Intent in = new Intent(context, LoginActivity.class);
-                            context.startActivity(in);
+//                            Intent in = new Intent(context, LoginActivity.class);
+//                            context.startActivity(in);
                         }
                     } catch (JSONException e) {
                         e.printStackTrace();
