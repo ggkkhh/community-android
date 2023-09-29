@@ -1,5 +1,7 @@
 package com.roydon.community.utils.string;
 
+import com.blankj.utilcode.util.StringUtils;
+
 import java.util.regex.Pattern;
 
 /**
@@ -34,6 +36,28 @@ import java.util.regex.Pattern;
  * /^(13[0-9]|14[01456879]|15[0-35-9]|16[2567]|17[0-8]|18[0-9]|19[0-35-9])\d{8}$/
  */
 public class TelephoneUtils {
+
+    private static final int START_INDEX = 3;
+    private static final int TELEPHONE_PLAIN_TEXT_LENGTH = 4;
+    private static final char ASTERISK = '*';
+
+    /**
+     * 手机号码 * 号加密
+     *
+     * @param telephone
+     * @return
+     */
+    public static String replaceSomeCharByAsterisk(String telephone) {
+        if (StringUtils.isEmpty(telephone)) {
+            return telephone;
+        }
+        char[] chars = telephone.toCharArray();
+        for (int i = START_INDEX; i < chars.length - TELEPHONE_PLAIN_TEXT_LENGTH; i++) {
+            chars[i] = ASTERISK;
+        }
+        String result = new String(chars);
+        return result;
+    }
 
     /**
      * 手机号码正则校验
