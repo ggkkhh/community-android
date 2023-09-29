@@ -51,10 +51,7 @@
                 android:background="@drawable/shape_login_edittext"
                 android:gravity="center_vertical"
                 android:orientation="horizontal"
-                android:paddingLeft="@dimen/dimen_20dp"
-                android:paddingTop="@dimen/dimen_20dp"
-                android:paddingRight="@dimen/dimen_20dp"
-                android:paddingBottom="@dimen/dimen_20dp">
+                android:padding="@dimen/dimen_20dp">
 
                 <ImageView
                     android:layout_width="@dimen/dimen_icon_16dp"
@@ -98,9 +95,9 @@
                     android:gravity="center_vertical"
                     android:orientation="horizontal"
                     android:paddingLeft="@dimen/dimen_20dp"
-                    android:paddingTop="@dimen/dimen_20dp"
+                    android:paddingTop="@dimen/pd_10"
                     android:paddingRight="@dimen/dimen_20dp"
-                    android:paddingBottom="@dimen/dimen_20dp">
+                    android:paddingBottom="@dimen/pd_10">
 
                     <ImageView
                         android:layout_width="@dimen/dimen_icon_16dp"
