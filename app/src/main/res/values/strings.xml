@@ -21,6 +21,8 @@
     <string name="cart_less_label">-</string>
     <string name="cart_add_label">+</string>
     <string name="cart_goods_count_init">1</string>
+
+    <string name="login_loading">登录中&#8230;</string>
     <!---->
     <string name="not_more">~ 没有更多啦 ~</string>
     <string name="share_to_people">点击分享</string>

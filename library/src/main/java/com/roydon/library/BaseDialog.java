@@ -980,6 +980,14 @@ public class BaseDialog extends AppCompatDialog implements LifecycleOwner,
             mDialog.show();
         }
 
+        public BaseDialog showDialog() {
+            if (!isCreated()) {
+                create();
+            }
+            mDialog.show();
+            return mDialog;
+        }
+
         /**
          * 销毁当前 Dialog
          */
