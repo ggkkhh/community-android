@@ -15,7 +15,9 @@ import com.roydon.community.api.HttpCallback;
 import com.roydon.community.constants.Constants;
 import com.roydon.community.domain.vo.PhoneCodeRes;
 import com.roydon.community.domain.vo.SmsLoginRes;
+import com.roydon.community.ui.dialog.WaitDialog;
 import com.roydon.community.utils.string.TelephoneUtils;
+import com.roydon.library.BaseDialog;
 import com.roydon.library.view.CountdownView;
 
 import java.util.HashMap;
@@ -90,6 +92,11 @@ public class SmsLoginActivity extends BaseActivity {
         btnSmsLogin.setOnClickListener(v -> {
             String telephone = etTelephone.getText().toString().trim();
             String phoneCode = etPhoneCode.getText().toString().trim();
+            // 等待对话框
+            final BaseDialog waitDialog = new WaitDialog.Builder(this)
+                    // 消息文本可以不用填写
+                    .setMessage(getString(R.string.login_loading))
+                    .showDialog();
             smsLogin(telephone, phoneCode);
         });
         tvToLogin.setOnClickListener(v -> {
