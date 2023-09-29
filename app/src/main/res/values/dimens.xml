@@ -50,6 +50,8 @@
     <dimen name="font_second_size">14sp</dimen>
     <dimen name="font_third_size">12sp</dimen>
 
+    <dimen name="login_box_font_size">18sp</dimen>
+
     <!-- icon图标-->
     <dimen name="dimen_icon_64dp">64dp</dimen>
     <dimen name="dimen_icon_32dp">32dp</dimen>

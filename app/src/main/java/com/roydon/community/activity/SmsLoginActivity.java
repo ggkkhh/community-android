@@ -1,8 +1,6 @@
 package com.roydon.community.activity;
 
 import android.content.Intent;
-import android.os.Handler;
-import android.os.Message;
 import android.util.Log;
 import android.widget.Button;
 import android.widget.EditText;
@@ -18,6 +16,7 @@ import com.roydon.community.constants.Constants;
 import com.roydon.community.domain.vo.PhoneCodeRes;
 import com.roydon.community.domain.vo.SmsLoginRes;
 import com.roydon.community.utils.string.TelephoneUtils;
+import com.roydon.library.view.CountdownView;
 
 import java.util.HashMap;
 
@@ -25,30 +24,31 @@ public class SmsLoginActivity extends BaseActivity {
 
     private EditText etTelephone;
     private EditText etPhoneCode;
-    private Button btnGetPhoneCode, btnSmsLogin;
+    private Button btnSmsLogin;
+    private CountdownView btnGetPhoneCode;
     private TextView tvToLogin, tvToRegister;
 
-    private int countSeconds = 60; // 倒计时秒数
+//    private int countSeconds = 60; // 倒计时秒数
 
     @Override
     protected int initLayout() {
         return R.layout.activity_sms_login;
     }
 
-    private Handler mCountHandler = new Handler() {
-        @Override
-        public void handleMessage(Message msg) {
-            super.handleMessage(msg);
-            if (countSeconds > 0) {
-                --countSeconds;
-                btnGetPhoneCode.setText(countSeconds + "秒后重试");
-                mCountHandler.sendEmptyMessageDelayed(0, 1000);
-            } else {
-                countSeconds = 60;
-                btnGetPhoneCode.setText("重新获取");
-            }
-        }
-    };
+//    private Handler mCountHandler = new Handler() {
+//        @Override
+//        public void handleMessage(Message msg) {
+//            super.handleMessage(msg);
+//            if (countSeconds > 0) {
+//                --countSeconds;
+//                btnGetPhoneCode.setText(countSeconds + "秒后重试");
+//                mCountHandler.sendEmptyMessageDelayed(0, 1000);
+//            } else {
+//                countSeconds = 60;
+//                btnGetPhoneCode.setText("重新获取");
+//            }
+//        }
+//    };
 
     @Override
     protected void initView() {
@@ -68,16 +68,24 @@ public class SmsLoginActivity extends BaseActivity {
     protected void initData() {
         // 获取短信验证码
         btnGetPhoneCode.setOnClickListener(v -> {
-            if (countSeconds == 60) {
-                String telephone = etTelephone.getText().toString();
-                if (!TelephoneUtils.isValidPhoneNumber(telephone)) {
-                    showShortToast("手机号码错误");
-                    return;
-                }
-                getPhoneCode(telephone);
-            } else {
-                showLongToast("不能重复发送验证码");
+//            if (countSeconds == 60) {
+//                String telephone = etTelephone.getText().toString();
+//                if (!TelephoneUtils.isValidPhoneNumber(telephone)) {
+//                    showShortToast("手机号码错误");
+//                    return;
+//                }
+//                getPhoneCode(telephone);
+//            } else {
+//                showLongToast("不能重复发送验证码");
+//            }
+            String telephone = etTelephone.getText().toString();
+            if (!TelephoneUtils.isValidPhoneNumber(telephone)) {
+                showShortToast("手机号码错误");
+                return;
             }
+            getPhoneCode(telephone);
+            toast(R.string.common_code_send_hint);
+            btnGetPhoneCode.start();
         });
         btnSmsLogin.setOnClickListener(v -> {
             String telephone = etTelephone.getText().toString().trim();
@@ -100,7 +108,7 @@ public class SmsLoginActivity extends BaseActivity {
                 Log.e("onSuccess", res);
                 PhoneCodeRes codeRes = new Gson().fromJson(res, PhoneCodeRes.class);
                 if (codeRes.getCode() == 200) {
-                    startCountBack();
+//                    startCountBack();
                 } else {
                     showSyncShortToast("接口超时");
                 }
@@ -114,12 +122,12 @@ public class SmsLoginActivity extends BaseActivity {
     }
 
     //获取验证码信息,进行计时操作
-    private void startCountBack() {
-        runOnUiThread(() -> {
-            btnGetPhoneCode.setText(countSeconds + "");
-            mCountHandler.sendEmptyMessage(0);
-        });
-    }
+//    private void startCountBack() {
+//        runOnUiThread(() -> {
+//            btnGetPhoneCode.setText(countSeconds + "");
+//            mCountHandler.sendEmptyMessage(0);
+//        });
+//    }
 
     private void smsLogin(String telephone, String phoneCode) {
         HashMap<String, Object> params = new HashMap<>();
