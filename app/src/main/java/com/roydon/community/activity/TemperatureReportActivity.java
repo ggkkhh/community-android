@@ -1,6 +1,12 @@
 package com.roydon.community.activity;
 
 import android.annotation.SuppressLint;
+import android.app.Notification;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
+import android.graphics.BitmapFactory;
+import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -10,6 +16,7 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import androidx.annotation.NonNull;
+import androidx.core.app.NotificationCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -59,6 +66,9 @@ public class TemperatureReportActivity extends BaseActivity implements StatusAct
     private TemperatureReportRecordAdapter reportAdapter;
     private List<EpidemicTemperatureReport> reportList = new ArrayList<>();
 
+    private NotificationManager manager;
+    private Notification note;
+
     @SuppressLint("HandlerLeak")
     private Handler mHandler = new Handler() {
         @SuppressLint("NotifyDataSetChanged")
@@ -106,6 +116,7 @@ public class TemperatureReportActivity extends BaseActivity implements StatusAct
     @Override
     protected void initData() {
         initToolBar(TOOL_TITLE);
+        showLoading();
         // 获取页面传来 appUser
         Bundle extras = getIntent().getExtras();
         if (StringUtil.isNotNull(extras)) {
@@ -154,6 +165,7 @@ public class TemperatureReportActivity extends BaseActivity implements StatusAct
         btnConfirmReport.setOnClickListener(v -> {
             temperatureReport(etRealName.getText().toString().trim(), etTelephone.getText().toString().trim(), etIdCard.getText().toString().trim(), sbTemperature.getRightText().toString().trim());
         });
+
     }
 
     /**
@@ -165,6 +177,40 @@ public class TemperatureReportActivity extends BaseActivity implements StatusAct
         etRealName.setText(appUser.getRealName());
         etTelephone.setText(appUser.getPhonenumber());
         etIdCard.setText(appUser.getIdCard());
+        showNotification(appUser);
+    }
+
+    /**
+     * IMPORTANT_NONE 关闭通知
+     * IMPORTANT_MIN 开启通知，不弹出，无提示音，状态栏不显示
+     * IMPORTANT_LOW 开启通知，不弹出，无提示音，状态栏显示
+     * IMPORTANT_DEFAULT 开启通知，不会弹出，发出提示音，状态栏显示
+     * IMPORTANT_HIGH 开启通知，会弹出，发出提示音，状态栏显示
+     */
+    public void showNotification(AppUser appUser) {
+        manager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            NotificationChannel channel = new NotificationChannel(
+                    "roydon",
+                    "欢迎来到社区管理系统",
+                    NotificationManager.IMPORTANCE_HIGH);
+            manager.createNotificationChannel(channel);
+        }
+
+//        Intent intent=new Intent(this,TemperatureReportActivity.class);
+//        PendingIntent pending=PendingIntent.getActivity(this,0,intent,0);
+
+        note = new NotificationCompat.Builder(this, "roydon")
+                .setContentTitle("欢迎来到社区管理系统")
+                .setContentText(appUser.getRealName() + " " + appUser.getPhonenumber())
+                .setSmallIcon(R.drawable.icon_complate)
+                .setLargeIcon(BitmapFactory.decodeResource(getResources(), R.drawable.icon_complate))
+                .setColor(Color.parseColor("#ff0000"))//设置小图标颜色
+//                .setContentIntent(pending)//设置点击动作
+                .setAutoCancel(true)
+                .build();
+        manager.notify(1, note);
     }
 
     /**
