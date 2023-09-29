@@ -5,8 +5,8 @@ public class ApiConfig {
     public static final int PAGE_SIZE = 10;
     public static final int PAGE_SIZE_20 = 20;
 
-        public static final String BASE_URl = "http://106.14.105.101:8088";
-//    public static final String BASE_URl = "http://192.168.109.13:8088";
+    public static final String BASE_URl = "http://106.14.105.101:8088";
+    //    public static final String BASE_URl = "http://192.168.109.13:8088";
     //    public static final String BASE_URl = "http://192.168.68.179:8088";
     public static final String WS_URl = "ws://106.14.105.101:8088";
 //    public static final String WS_URl = "ws://192.168.109.13:8088";
@@ -107,6 +107,7 @@ public class ApiConfig {
      * 核酸预约
      */
     public static final String NAT_ORDER_QUICK = "/epidemic/nat/order/quick"; // quick
+    public static final String NAT_ORDER_MINE_HISTORY = "/epidemic/nat/order/mine_history"; // 我的核酸预约记录
 
     /**
      * 体温上报
