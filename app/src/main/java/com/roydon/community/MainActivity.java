@@ -1,11 +1,13 @@
 package com.roydon.community;
 
+import android.content.Intent;
 import android.view.View;
 import android.widget.Button;
 
 import com.roydon.community.activity.HomeActivity;
 import com.roydon.community.activity.LoginActivity;
 import com.roydon.community.activity.RegisterActivity;
+import com.roydon.community.constants.Constants;
 import com.roydon.community.utils.string.StringUtil;
 
 /**
@@ -28,8 +30,13 @@ public class MainActivity extends BaseActivity {
 
     @Override
     protected void initData() {
-        if (!StringUtil.isEmpty(findByKey("token"))) {
-            navigateTo(HomeActivity.class);
+        // 判断token缓存是否为空
+        if (StringUtil.isEmpty(findByKey(Constants.TOKEN))) {
+            Intent intent = new Intent(context, LoginActivity.class);
+            context.startActivity(intent);
+        } else {
+            // 非空跳转主页面
+            navigateToWithFlag(HomeActivity.class, Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
             finish();
         }
         buttonLogin.setOnClickListener(new View.OnClickListener() {
