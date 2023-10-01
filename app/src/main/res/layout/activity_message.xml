@@ -11,7 +11,7 @@
         android:id="@+id/title_bar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:rightIcon="@mipmap/icon_add_friend"
+        app:rightIcon="@mipmap/icon_add"
         app:rightIconHeight="25dp"
         app:rightIconWidth="25dp"
         android:background="@color/element"

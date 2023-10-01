@@ -54,7 +54,7 @@ public interface StatusAction {
      * 显示空提示
      */
     default void showEmpty() {
-        showLayout(R.drawable.icon_hint_empty, R.string.hint_layout_no_data, null);
+        showLayout(R.drawable.hint_empty, R.string.hint_layout_no_data, null);
     }
 
     /**

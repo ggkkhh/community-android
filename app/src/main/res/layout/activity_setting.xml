@@ -94,7 +94,6 @@
         app:bar_leftColor="@color/black"
         app:bar_leftText="@string/setting_cache"
         app:bar_lineVisible="false"
-        app:bar_rightColor="@color/gray"
         app:bar_rightIcon="@mipmap/icon_right" />
 
     <com.roydon.library.layout.SettingBar
@@ -105,8 +104,7 @@
         app:bar_leftColor="@color/red"
         app:bar_leftText="@string/setting_exit"
         app:bar_lineVisible="false"
-        app:bar_rightColor="@color/gray"
-        app:bar_rightIcon="@mipmap/icon_exit" />
+        app:bar_rightIcon="@mipmap/icon_right" />
 
     <com.roydon.library.layout.SettingBar
         android:id="@+id/sb_test_title_bar"

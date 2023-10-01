@@ -125,7 +125,7 @@
             android:layout_marginBottom="30dp"
             android:background="@drawable/shape_background_icon_white"
             android:padding="8dp"
-            app:srcCompat="@mipmap/icon_baidu_located" />
+            app:srcCompat="@mipmap/icon_locate" />
     </LinearLayout>
 
     <LinearLayout

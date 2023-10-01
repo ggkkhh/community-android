@@ -45,7 +45,7 @@ public class FeedbackActivity extends BaseActivity implements StatusAction {
             super.handleMessage(msg);
             switch (msg.what) {
                 case HANDLER_WHAT_COMPLETE:
-                    showLayout(R.drawable.icon_complate, R.string.feedback_success, null);
+                    showLayout(R.drawable.icon_completed, R.string.feedback_success, null);
                     break;
                 default:
                     break;

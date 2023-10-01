@@ -8,7 +8,7 @@ import androidx.annotation.Nullable;
 import com.previewlibrary.enitity.IThumbViewInfo;
 
 public class ImageViewInfo implements IThumbViewInfo {
-    //图片地址
+    // 图片地址
     private String url;
     // 记录坐标
     private Rect mBounds;
@@ -18,7 +18,6 @@ public class ImageViewInfo implements IThumbViewInfo {
     public ImageViewInfo(String url) {
         this.url = url;
     }
-
 
     public void setUrl(String url) {
         this.url = url;
@@ -35,7 +34,6 @@ public class ImageViewInfo implements IThumbViewInfo {
     public void setVideoUrl(String videoUrl) {
         this.videoUrl = videoUrl;
     }
-
 
     @Override
     public String getUrl() {

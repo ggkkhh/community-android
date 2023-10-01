@@ -6,7 +6,6 @@ import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -190,13 +189,11 @@ public class TemperatureReportActivity extends BaseActivity implements StatusAct
     public void showNotification(AppUser appUser) {
         manager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            NotificationChannel channel = new NotificationChannel(
-                    "roydon",
-                    "欢迎来到社区管理系统",
-                    NotificationManager.IMPORTANCE_HIGH);
-            manager.createNotificationChannel(channel);
-        }
+        NotificationChannel channel = new NotificationChannel(
+                "roydon",
+                "欢迎来到社区管理系统",
+                NotificationManager.IMPORTANCE_HIGH);
+        manager.createNotificationChannel(channel);
 
 //        Intent intent=new Intent(this,TemperatureReportActivity.class);
 //        PendingIntent pending=PendingIntent.getActivity(this,0,intent,0);
@@ -204,8 +201,8 @@ public class TemperatureReportActivity extends BaseActivity implements StatusAct
         note = new NotificationCompat.Builder(this, "roydon")
                 .setContentTitle("欢迎来到社区管理系统")
                 .setContentText(appUser.getRealName() + " " + appUser.getPhonenumber())
-                .setSmallIcon(R.drawable.icon_complate)
-                .setLargeIcon(BitmapFactory.decodeResource(getResources(), R.drawable.icon_complate))
+                .setSmallIcon(R.drawable.icon_completed)
+                .setLargeIcon(BitmapFactory.decodeResource(getResources(), R.drawable.icon_completed))
                 .setColor(Color.parseColor("#ff0000"))//设置小图标颜色
 //                .setContentIntent(pending)//设置点击动作
                 .setAutoCancel(true)

@@ -73,7 +73,7 @@ public class NatOrderRecordAdapter extends RecyclerView.Adapter<NatOrderRecordAd
                 break;
             case "1":
                 // 已完成
-                Glide.with(mContext).load(R.mipmap.icon_complete).centerCrop().into(holder.ivOrderStatus);
+                Glide.with(mContext).load(R.mipmap.icon_completed).centerCrop().into(holder.ivOrderStatus);
                 holder.orderStatus.setTextColor(Color.GREEN);
                 break;
             case "2":
