@@ -118,7 +118,7 @@ public class NewsAppFragment extends BaseLazyLoadFragment implements StatusActio
 
     @Override
     protected void resume() {
-
+//        getNewsList(true);
     }
 
     @Override

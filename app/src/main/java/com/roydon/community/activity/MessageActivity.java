@@ -159,6 +159,7 @@ public class MessageActivity extends BaseActivity implements StatusAction {
         Api.build(ApiConfig.CHAT_LIST_NORMAL, params).postRequestWithToken(this, new HttpCallback() {
             @Override
             public void onSuccess(final String res) {
+                Log.e("getChatListNormal", res);
                 if (isRefresh) {
                     refreshLayout.finishRefresh(true);
                 } else {

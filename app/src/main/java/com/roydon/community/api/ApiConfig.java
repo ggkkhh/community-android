@@ -6,10 +6,10 @@ public class ApiConfig {
     public static final int PAGE_SIZE_20 = 20;
 
     public static final String BASE_URl = "http://106.14.105.101:8088";
-    //    public static final String BASE_URl = "http://192.168.109.13:8088";
+    //        public static final String BASE_URl = "http://10.133.1.58:8088";
     //    public static final String BASE_URl = "http://192.168.68.179:8088";
     public static final String WS_URl = "ws://106.14.105.101:8088";
-//    public static final String WS_URl = "ws://192.168.109.13:8088";
+//    public static final String WS_URl = "ws://10.133.1.58:8088";
 //    public static final String WS_URl = "ws://192.168.68.179:8088";
 
     /**
@@ -97,6 +97,11 @@ public class ApiConfig {
      * 疫情防控-出入社区吧报备
      */
     public static final String EPIDEMIC_ACCESS_ADD = "/epidemic/access"; // 新增
+
+    /**
+     * 疫情防控-隔离记录
+     */
+    public static final String EPIDEMIC_ISOLATION_UNFINISHED_RECORD = "/epidemic/isolation/unfinished_record"; // 新增
 
     /**
      * 紧急热线

@@ -147,6 +147,7 @@ public class NewsSearchActivity extends BaseActivity implements StatusAction {
                 //注意，这是一定要判断event != null。因为在某些输入法上会返回null。
                 if (i == EditorInfo.IME_ACTION_SEND || i == EditorInfo.IME_ACTION_DONE || (keyEvent != null && KeyEvent.KEYCODE_ENTER == keyEvent.getKeyCode() && KeyEvent.ACTION_DOWN == keyEvent.getAction())) {
                     //处理事件
+                    showLoading();
                     selNewsList(true, queryStr.getText().toString());
                 }
                 return false;

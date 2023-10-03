@@ -219,7 +219,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="5dp"
                         android:gravity="center"
-                        android:text="功能一"
+                        android:text="健康码"
                         android:textColor="@color/black"
                         android:textSize="@dimen/font_third_size" />
 

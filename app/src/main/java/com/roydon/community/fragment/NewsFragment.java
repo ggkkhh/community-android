@@ -58,7 +58,6 @@ public class NewsFragment extends BaseLazyLoadFragment {
 
     @Override
     protected void visibleReLoad() {
-
     }
 
     @Override
@@ -68,7 +67,6 @@ public class NewsFragment extends BaseLazyLoadFragment {
 
     @Override
     protected void resume() {
-
     }
 
     @Override

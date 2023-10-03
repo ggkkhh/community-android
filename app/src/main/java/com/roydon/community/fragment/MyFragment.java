@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -41,6 +42,8 @@ import com.roydon.community.activity.WebviewActivity;
 import com.roydon.community.api.Api;
 import com.roydon.community.api.ApiConfig;
 import com.roydon.community.api.HttpCallback;
+import com.roydon.community.domain.entity.EpidemicIsolationRecord;
+import com.roydon.community.domain.response.EpidemicIsolationRecordRes;
 import com.roydon.community.domain.response.UserInfoRes;
 import com.roydon.community.domain.vo.AppUser;
 import com.roydon.community.enums.ThemeEnum;
@@ -49,6 +52,7 @@ import com.roydon.community.ui.dialog.AddressDialog;
 import com.roydon.community.utils.android.SystemUtils;
 import com.roydon.community.utils.cache.SPUtils;
 import com.roydon.community.utils.string.StringUtil;
+import com.roydon.community.utils.string.TelephoneUtils;
 import com.roydon.community.view.CircleTransform;
 import com.roydon.community.view.DialogX;
 import com.roydon.library.BaseDialog;
@@ -56,10 +60,16 @@ import com.squareup.picasso.MemoryPolicy;
 import com.squareup.picasso.NetworkPolicy;
 import com.squareup.picasso.Picasso;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 
 public class MyFragment extends BaseFragment {
+
+    // handler
+    private static final int HANDLER_WHAT_EMPTY = 0;
+    private static final int HANDLER_GET_USERINFO = 1;
+    private static final int HANDLER_MY_ISOLATION_RECORD = 2; //myIsolationRecord
 
     private ArrayList<Fragment> mFragments = new ArrayList<>();
     private String[] mTitles;
@@ -71,13 +81,21 @@ public class MyFragment extends BaseFragment {
     // top-bar
     private ImageView ivSetting, ivShare, ivTheme;
     // 订单栏功能
-    private LinearLayout llUserOrder, llNatOrder,llEpidemicTemperature;
-    private RelativeLayout rlUserAddress, rlAccessRecord, rlHotline, rlHealthCode, rlInoculationHistoryReport, rlAddressSelecter, rlWebview, rlFeedback;
+    private LinearLayout llUserOrder, llAccessReport, llEpidemicHealthCode, llNatOrder, llEpidemicHotline, llEpidemicTemperature;
+    private RelativeLayout rlUserAddress, rlInoculationHistoryReport, rlAddressSelecter, rlWebview, rlFeedback;
+
+    private LinearLayout llIsolationState;
 
     // 测试功能区
     private RelativeLayout rlBDAddress, rlMessage;
 
     private AppUser appUser;
+    private EpidemicIsolationRecord isolationRecord;
+
+    private TextView tvIsolationRealName;
+    private TextView tvIsolationTelephone;
+    private TextView tvIsolationTime;
+    private TextView tvIsolationPeriod;
 
     @SuppressLint("HandlerLeak")
     private Handler mHandler = new Handler() {
@@ -86,12 +104,21 @@ public class MyFragment extends BaseFragment {
         public void handleMessage(@NonNull Message msg) {
             super.handleMessage(msg);
             switch (msg.what) {
-                case 2:
+                case HANDLER_WHAT_EMPTY:
+                    llIsolationState.setVisibility(View.GONE);
+                    break;
+                case HANDLER_GET_USERINFO:
                     showUserInfo(appUser);
+                    break;
+                case HANDLER_MY_ISOLATION_RECORD:
+                    showMyIsolationRecordLayout(isolationRecord);
+                    break;
+                default:
                     break;
             }
         }
     };
+
 
     public MyFragment() {
     }
@@ -114,9 +141,6 @@ public class MyFragment extends BaseFragment {
 
         mLinearLayout = mRootView.findViewById(R.id.layout_my_detail);
         rlUserAddress = mRootView.findViewById(R.id.rl_user_address);
-        rlAccessRecord = mRootView.findViewById(R.id.rl_access_record);
-        rlHotline = mRootView.findViewById(R.id.rl_hotline);
-        rlHealthCode = mRootView.findViewById(R.id.rl_health_code);
         rlInoculationHistoryReport = mRootView.findViewById(R.id.rl_inoculation_history_report);
         rlAddressSelecter = mRootView.findViewById(R.id.rl_address_selecter);
 
@@ -129,9 +153,19 @@ public class MyFragment extends BaseFragment {
         llUserOrder = mRootView.findViewById(R.id.ll_user_order);
 
         // 疫情防控
+        llAccessReport = mRootView.findViewById(R.id.ll_access_report);
+        llEpidemicHealthCode = mRootView.findViewById(R.id.ll_epidemic_health_code);
         llNatOrder = mRootView.findViewById(R.id.ll_nat_order);
+        llEpidemicHotline = mRootView.findViewById(R.id.ll_epidemic_hotline);
         llEpidemicTemperature = mRootView.findViewById(R.id.ll_epidemic_temperature);
 
+        // 隔离状态
+        llIsolationState = mRootView.findViewById(R.id.ll_isolation_state);
+        llIsolationState.setVisibility(View.GONE);
+        tvIsolationRealName = mRootView.findViewById(R.id.tv_isolation_real_name);
+        tvIsolationTelephone = mRootView.findViewById(R.id.tv_isolation_telephone);
+        tvIsolationTime = mRootView.findViewById(R.id.tv_isolation_time);
+        tvIsolationPeriod = mRootView.findViewById(R.id.tv_isolation_period);
         //功能反馈
         rlFeedback = mRootView.findViewById(R.id.rl_feedback);
 
@@ -188,21 +222,13 @@ public class MyFragment extends BaseFragment {
         mLinearLayout.setOnClickListener(v -> {
             navigateTo(UserInfoActivity.class);
         });
-        rlFeedback.setOnClickListener(v->{
+        rlFeedback.setOnClickListener(v -> {
             navigateTo(FeedbackActivity.class);
         });
         rlUserAddress.setOnClickListener(v -> {
             navigateTo(UserAddressActivity.class);
         });
-        rlHotline.setOnClickListener(v -> {
-            navigateTo(HotlineActivity.class);
-        });
-        rlHealthCode.setOnClickListener(v -> {
-            navigateTo(HealthCodeActivity.class);
-        });
-        rlInoculationHistoryReport.setOnClickListener(v -> {
-            navigateTo(InoculationHistoryActivity.class);
-        });
+
         rlAddressSelecter.setOnClickListener(v -> {
             new AddressDialog.Builder(getContext()).setTitle(getString(R.string.address_selecter_title))
                     // 设置默认省份
@@ -228,8 +254,24 @@ public class MyFragment extends BaseFragment {
         rlBDAddress.setOnClickListener(v -> {
             navigateTo(BDAddressSelectActivity.class);
         });
+        // 用户订单
         llUserOrder.setOnClickListener(v -> {
             navigateTo(UserOrderActivity.class);
+        });
+        // 出入社区报备
+        llAccessReport.setOnClickListener(v -> {
+//            navigateTo(AccessRecordActivity.class);
+            Bundle bundle = new Bundle();
+            bundle.putSerializable(APPUSER, appUser);
+            navigateToWithBundle(AccessRecordActivity.class, bundle);
+        });
+        // 健康码
+        llEpidemicHealthCode.setOnClickListener(v -> {
+            navigateTo(HealthCodeActivity.class);
+        });
+        // 疫苗接种记录
+        rlInoculationHistoryReport.setOnClickListener(v -> {
+            navigateTo(InoculationHistoryActivity.class);
         });
         // 核酸预约
         llNatOrder.setOnClickListener(v -> {
@@ -237,12 +279,17 @@ public class MyFragment extends BaseFragment {
             bundle.putSerializable(APPUSER, appUser);
             navigateToWithBundle(NatOrderActivity.class, bundle);
         });
+        // 紧急热线
+        llEpidemicHotline.setOnClickListener(v -> {
+            navigateTo(HotlineActivity.class);
+        });
         //体温上报
-        llEpidemicTemperature.setOnClickListener(v->{
+        llEpidemicTemperature.setOnClickListener(v -> {
             Bundle bundle = new Bundle();
             bundle.putSerializable(APPUSER, appUser);
             navigateToWithBundle(TemperatureReportActivity.class, bundle);
         });
+
         rlMessage.setOnClickListener(v -> {
             navigateTo(MessageActivity.class);
         });
@@ -253,12 +300,24 @@ public class MyFragment extends BaseFragment {
 
     @Override
     protected void initData() {
-
-        //出入社区报备
-        rlAccessRecord.setOnClickListener(v -> {
-            navigateTo(AccessRecordActivity.class);
-        });
         getUserInfo();
+        myIsolationRecord();
+    }
+
+    //是否第一次加载
+    private boolean isFirstLoading = true;
+
+    /**
+     * 在fragment可见的时候，刷新数据
+     */
+    @Override
+    public void onResume() {
+        super.onResume();
+        if (!isFirstLoading) {
+            //如果不是第一次加载，刷新数据
+            myIsolationRecord();
+        }
+        isFirstLoading = false;
     }
 
     /**
@@ -277,7 +336,7 @@ public class MyFragment extends BaseFragment {
                     if (StringUtil.isNotNull(user)) {
                         Log.e("getUserInfo", user.toString());
                         appUser = user;
-                        mHandler.sendEmptyMessage(2);
+                        mHandler.sendEmptyMessage(HANDLER_GET_USERINFO);
                     } else {
                         showShortToastSync("请重新登陆");
                     }
@@ -302,6 +361,48 @@ public class MyFragment extends BaseFragment {
             userNickName.setTextColor(Color.YELLOW);
         }
         userDept.setText(appUser.getDept().getDeptName());
+    }
+
+    /**
+     * 隔离记录
+     */
+    private void myIsolationRecord() {
+        HashMap<String, Object> params = new HashMap<>();
+        Api.build(ApiConfig.EPIDEMIC_ISOLATION_UNFINISHED_RECORD, params).getRequestWithToken(getActivity(), new HttpCallback() {
+            @Override
+            public void onSuccess(final String res) {
+                Log.e("myIsolationRecord", res);
+                Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
+                EpidemicIsolationRecordRes response = gson.fromJson(res, EpidemicIsolationRecordRes.class);
+                if (response != null && response.getCode() == 200) {
+                    EpidemicIsolationRecord record = response.getData();
+                    if (StringUtil.isNotNull(record)) {
+                        Log.e("myIsolationRecord", record.toString());
+                        isolationRecord = record;
+                        mHandler.sendEmptyMessage(HANDLER_MY_ISOLATION_RECORD);
+                    } else {
+                        mHandler.sendEmptyMessage(HANDLER_WHAT_EMPTY);
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Exception e) {
+
+            }
+        });
+    }
+
+    @SuppressLint({"SetTextI18n", "SimpleDateFormat"})
+    private void showMyIsolationRecordLayout(EpidemicIsolationRecord isolationRecord) {
+        llIsolationState.setVisibility(View.VISIBLE);
+        tvIsolationRealName.setText(isolationRecord.getRealName());
+        tvIsolationTelephone.setText(TelephoneUtils.replaceSomeCharByAsterisk(isolationRecord.getTelephone()));
+        tvIsolationTime.setText(isolationRecord.getIsolationTime() + "/" + isolationRecord.getRemainingIsolationTime());
+        String beginTime = new SimpleDateFormat("yyyy-MM-dd HH:mm").format(isolationRecord.getCreateTime());
+        String endTime = new SimpleDateFormat("yyyy-MM-dd HH:mm").format(isolationRecord.getIsolationFinishTime());
+        tvIsolationPeriod.setText(beginTime + " — " + endTime);
+
     }
 
 }
