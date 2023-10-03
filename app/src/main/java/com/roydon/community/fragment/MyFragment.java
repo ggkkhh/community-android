@@ -65,11 +65,13 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 public class MyFragment extends BaseFragment {
-
     // handler
     private static final int HANDLER_WHAT_EMPTY = 0;
     private static final int HANDLER_GET_USERINFO = 1;
     private static final int HANDLER_MY_ISOLATION_RECORD = 2; //myIsolationRecord
+
+    //是否第一次加载
+    private boolean isFirstLoading = true;
 
     private ArrayList<Fragment> mFragments = new ArrayList<>();
     private String[] mTitles;
@@ -304,8 +306,7 @@ public class MyFragment extends BaseFragment {
         myIsolationRecord();
     }
 
-    //是否第一次加载
-    private boolean isFirstLoading = true;
+
 
     /**
      * 在fragment可见的时候，刷新数据
