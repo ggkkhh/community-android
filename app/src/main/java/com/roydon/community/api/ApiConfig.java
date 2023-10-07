@@ -21,6 +21,13 @@ public class ApiConfig {
     public static final String REGISTER = "/app/register"; //注册
 
     /**
+     * 扫描二维码登录接口
+     */
+    public static final String SCAN = "/scan"; // 扫描二维码，get，参数：uuid
+    public static final String CONFIRM = "/confirm"; // 确认登录，get，参数：uuid
+
+
+    /**
      * user接口
      */
     public static final String USER_INFO = "/app/user/info"; //注册

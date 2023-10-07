@@ -6,4 +6,6 @@ package com.roydon.community.constants;
 public class BundleConstants {
 
     public static final String APPUSER = "appUser";
+    public static final String AVATAR = "avatar";
+    public static final String UUID = "uuid";
 }
