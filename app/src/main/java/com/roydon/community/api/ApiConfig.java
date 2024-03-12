@@ -5,11 +5,11 @@ public class ApiConfig {
     public static final int PAGE_SIZE = 10;
     public static final int PAGE_SIZE_20 = 20;
 
-    public static final String BASE_URl = "http://106.14.105.101:8088";
-    //        public static final String BASE_URl = "http://10.133.1.58:8088";
+//    public static final String BASE_URl = "http://106.14.105.101:8088";
+            public static final String BASE_URl = "http://192.168.26.13:8088";
     //    public static final String BASE_URl = "http://192.168.68.179:8088";
-    public static final String WS_URl = "ws://106.14.105.101:8088";
-//    public static final String WS_URl = "ws://10.133.1.58:8088";
+//    public static final String WS_URl = "ws://106.14.105.101:8088";
+    public static final String WS_URl = "ws://192.168.26.13:8088";
 //    public static final String WS_URl = "ws://192.168.68.179:8088";
 
     /**
