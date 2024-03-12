@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:fitsSystemWindows="false"
     tools:context=".activity.BDAddressSelectActivity">
     <!--百度地图控件-->
     <com.baidu.mapapi.map.MapView
@@ -118,13 +119,13 @@
 
         <ImageView
             android:id="@+id/iv_relocated"
-            android:layout_width="@dimen/icon_main_size"
-            android:layout_height="@dimen/icon_main_size"
+            android:layout_width="@dimen/dimen_40dp"
+            android:layout_height="@dimen/dimen_40dp"
             android:layout_marginLeft="10dp"
             android:layout_marginBottom="30dp"
             android:background="@drawable/shape_background_icon_white"
             android:padding="8dp"
-            app:srcCompat="@mipmap/icon_baidu_located" />
+            app:srcCompat="@mipmap/icon_locate" />
     </LinearLayout>
 
     <LinearLayout

@@ -2,17 +2,23 @@
 
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
+    <style name="MyAppBarLayout" parent="Widget.Material3.AppBarLayout">
+        <item name="android:background">@color/transparent</item>
+        <item name="android:padding">0dp</item>
+        <item name="android:layout_margin">0dp</item>
+    </style>
+
     <style name="SplashTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="android:windowIsTranslucent">true</item>
         <item name="android:windowBackground">@android:color/transparent</item><!--透明背景-->
     </style>
 
     <declare-styleable name="SunAnimationView">
-        <attr name="sun_circle_color" format="color"/>
-        <attr name="sun_font_color" format="color"/>
-        <attr name="sun_font_size" format="dimension"/>
-        <attr name="sun_circle_radius" format="integer"/>
-        <attr name="type" format="boolean"/>
+        <attr name="sun_circle_color" format="color" />
+        <attr name="sun_font_color" format="color" />
+        <attr name="sun_font_size" format="dimension" />
+        <attr name="sun_circle_radius" format="integer" />
+        <attr name="type" format="boolean" />
     </declare-styleable>
 
     <!-- 圆角图片 -->
@@ -21,7 +27,7 @@
         <item name="cornerSize">10dp</item>
     </style>
 
-    <!-- 自定义弹出样式 -->
+    <!-- 自定义弹窗样式 -->
     <style name="MyDialogStyle" parent="Theme.AppCompat.Light.Dialog.Alert">
         <!--是否浮在窗口之上-->
         <!--<item name="android:windowIsFloating">true</item>-->
@@ -58,9 +64,47 @@
         <item name="android:colorForeground">@color/element</item>
     </style>
 
+    <!-- 默认圆角按钮样式 -->
+    <style name="ButtonStyle" parent="Widget.AppCompat.Button.Borderless">
+        <item name="android:paddingStart">15dp</item>
+        <item name="android:paddingEnd">15dp</item>
+        <item name="android:paddingTop">8dp</item>
+        <item name="android:paddingBottom">8dp</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:gravity">center</item>
+        <item name="android:background">@drawable/selector_button</item>
+        <item name="android:foreground">@null</item>
+    </style>
+
     <!-- CustomRadioTheme -->
-<!--    <style name="CustomRadioTheme" parent="@android:style/Widget.CompoundButton.CheckBox">-->
-<!--        <item name="android:button">@drawable/selector_radio_group</item>-->
-<!--    </style>-->
+    <!--    <style name="CustomRadioTheme" parent="@android:style/Widget.CompoundButton.CheckBox">-->
+    <!--        <item name="android:button">@drawable/selector_radio_group</item>-->
+    <!--    </style>-->
+
+    <!-- 上拉刷新下拉加载样式 -->
+    <style name="RefreshLayoutStyle" parent="Base.CardView">
+        <item name="srlPrimaryColor">@color/blue_deep</item>
+        <item name="srlAccentColor">@color/white</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="srlEnablePreviewInEditMode">false</item>
+    </style>
+
+    <!-- 获取验证码样式 -->
+    <style name="CountdownViewStyle">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:background">@drawable/selector_countdown</item>
+        <item name="android:layout_marginStart">16dp</item>
+        <item name="android:layout_marginEnd">16dp</item>
+        <item name="android:paddingTop">10dp</item>
+        <item name="android:paddingBottom">10dp</item>
+        <item name="android:minWidth">90dp</item>
+        <item name="android:gravity">center</item>
+        <item name="android:text">@string/common_code_send</item>
+        <item name="android:textColor">@drawable/selector_countdown_color</item>
+        <item name="android:textSize">12sp</item>
+    </style>
 
 </resources>

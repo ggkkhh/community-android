@@ -7,6 +7,9 @@
     <uses-feature
         android:name="android.hardware.camera"
         android:required="false" />
+    <uses-feature
+        android:name="android.hardware.telephony"
+        android:required="false" />
 
     <uses-permission android:name="android.permission.INTERNET" /> <!-- 访问网络 -->
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" /> <!-- 访问GPS定位 -->
@@ -26,8 +29,10 @@
     <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS" />
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
     <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.CALL_PHONE" />
 
     <application
+        android:name=".MyApplication"
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
@@ -38,6 +43,42 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Communityandroid"
         tools:targetApi="31">
+        <activity
+            android:name=".activity.LoginConfirmActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activity.TemperatureReportActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activity.ChatPrivateActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activity.FeedbackActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activity.NatOrderActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activity.TestTitlebarActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activity.AboutUsActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activity.AppMessageActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activity.ImageSelectActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activity.InoculationHistoryReportActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activity.InoculationHistoryActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activity.HealthCodeActivity"
+            android:exported="false" />
         <activity
             android:name=".activity.HotlineActivity"
             android:exported="false" />

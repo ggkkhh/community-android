@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginLeft="10dp"
+    android:layout_marginTop="10dp"
+    android:layout_marginRight="10dp"
+    android:background="@drawable/shape_radius"
+    android:orientation="horizontal"
+    android:padding="@dimen/pd_10">
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/tv_real_name"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="郭意诚"
+            android:textColor="@color/black"
+            android:textSize="@dimen/font_size_h3"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/tv_telephone"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="@dimen/mg_6"
+            android:text="18203565656"
+            android:textColor="@color/blue"
+            android:textSize="@dimen/font_main_size"
+            android:textStyle="bold" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/tv_temperature"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="right|top"
+            android:text="36.6 ℃"
+            android:textColor="@color/black"
+            android:textSize="@dimen/font_size_h1" />
+
+        <TextView
+            android:id="@+id/tv_create_time"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/mg_6"
+            android:gravity="right|bottom"
+            android:text="上报时间："
+            android:textColor="@color/gray"
+            android:textSize="@dimen/font_second_size" />
+
+    </LinearLayout>
+
+</LinearLayout>

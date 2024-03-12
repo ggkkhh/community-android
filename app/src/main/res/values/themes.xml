@@ -9,13 +9,16 @@
         <item name="colorSecondary">@color/teal_200</item>
         <item name="colorSecondaryVariant">@color/teal_700</item>
         <item name="colorOnSecondary">@color/black</item>
+
+        <!-- 窗口背景颜色 -->
+        <item name="android:windowBackground">@color/window_background</item>
+
+<!--        <item name="android:windowContentOverlay">@null</item>-->
         <!-- Status bar color. -->
         <!--        <item name="android:statusBarColor">?attr/colorPrimaryVariant</item>-->
         <!-- Customize your theme here. -->
         <!-- 引入自定义弹窗 -->
         <item name="android:alertDialogTheme">@style/MyDialogStyle</item>
-        <!-- 夜间模式切换闪屏bug -->
-<!--        <item name="android:windowAnimationStyle">@android:style/Animation.Toast</item>-->
     </style>
 
     <style name="Theme.Communityandroid.NoActionBar">
@@ -26,4 +29,5 @@
     <style name="Theme.Communityandroid.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 
     <style name="Theme.Communityandroid.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+
 </resources>

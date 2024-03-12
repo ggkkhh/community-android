@@ -2,6 +2,7 @@ package com.roydon.community.activity;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
@@ -21,7 +22,9 @@ import com.roydon.community.R;
 import com.roydon.community.api.Api;
 import com.roydon.community.api.ApiConfig;
 import com.roydon.community.api.HttpCallback;
+import com.roydon.community.constants.BundleConstants;
 import com.roydon.community.domain.response.BaseResponse;
+import com.roydon.community.domain.vo.AppUser;
 import com.roydon.community.enums.AccessTypeEnum;
 import com.roydon.community.enums.ReportTypeEnum;
 import com.roydon.community.utils.string.StringUtil;
@@ -48,6 +51,8 @@ public class AccessRecordActivity extends BaseActivity {
 
     String realAddress;
     String regionCode;
+
+    private AppUser appUser;
 
     // 新增按钮
     private Button addRecord;
@@ -125,6 +130,12 @@ public class AccessRecordActivity extends BaseActivity {
         ivReturn.setOnClickListener(v -> {
             finish();
         });
+        // 获取页面传来 appUser
+        Bundle extras = getIntent().getExtras();
+        if (StringUtil.isNotNull(extras)) {
+            appUser = (AppUser) extras.getSerializable(BundleConstants.APPUSER);
+            showAppUserInForm(appUser);
+        }
         addRecord.setOnClickListener(v -> {
             if (etRealName.getText().toString().length() >= 10 || StringUtil.isEmpty(etRealName.getText().toString())) {
                 showShortToast("请输入正确姓名");
@@ -144,6 +155,11 @@ public class AccessRecordActivity extends BaseActivity {
             }
             saveAccessRecord(etRealName.getText().toString(), etTelephone.getText().toString(), accessType, ReportTypeEnum.ONESELF.getCode(), tvPlaceStart.getText().toString(), etPlaceEnd.getText().toString(), etRemark.getText().toString());
         });
+    }
+
+    private void showAppUserInForm(AppUser appUser) {
+        etRealName.setText(appUser.getRealName());
+        etTelephone.setText(appUser.getPhonenumber());
     }
 
     private void saveAccessRecord(String realName, String telephone, String accessType, String reportType, String placeStart, String placeEnd, String remark) {

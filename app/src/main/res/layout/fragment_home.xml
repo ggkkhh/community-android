@@ -9,79 +9,102 @@
     android:orientation="vertical"
     tools:context=".fragment.HomeFragment">
 
-    <androidx.appcompat.widget.Toolbar
-        android:id="@+id/toolbar"
+    <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/element"
-        android:fitsSystemWindows="true"
-        app:contentInsetStart="0dp"
-        app:popupTheme="@style/AppTheme.PopupOverlay">
+        android:background="@drawable/shape_gradient"
+        android:fitsSystemWindows="true">
 
-        <LinearLayout
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="horizontal"
-            android:padding="@dimen/pd_6">
+            android:layout_height="@dimen/toolbar_height"
+            app:contentInsetStart="0dp"
+            app:popupTheme="@style/AppTheme.PopupOverlay">
 
-            <androidx.cardview.widget.CardView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:cardCornerRadius="20dp">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                android:padding="@dimen/pd_6">
 
-                <ImageView
+                <com.roydon.community.widget.RoundImageView
                     android:id="@+id/index_user_avatar"
                     android:layout_width="40dp"
                     android:layout_height="40dp"
                     android:layout_gravity="center_vertical"
                     android:scaleType="fitXY"
-                    android:src="@mipmap/avatar" />
-            </androidx.cardview.widget.CardView>
+                    android:src="@mipmap/avatar_ganyu" />
 
-            <!--搜索框-->
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="@dimen/search_box_height"
-                android:layout_gravity="center_vertical"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
-                android:layout_weight="1"
-                android:background="@drawable/shape_search_box"
-                android:gravity="center_vertical"
-                android:orientation="horizontal">
+                <!--搜索框-->
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/search_box_height"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/shape_search_box"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
 
+                    <ImageView
+                        android:layout_width="12dp"
+                        android:layout_height="12dp"
+                        android:layout_marginLeft="10dp"
+                        android:src="@mipmap/search" />
+
+                    <TextView
+                        android:id="@+id/et_search"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center"
+                        android:layout_marginLeft="10dp"
+                        android:background="@null"
+                        android:gravity="center_vertical|left"
+                        android:text="搜索"
+                        android:textColor="@color/grey"
+                        android:textSize="@dimen/font_second_size" />
+
+                </LinearLayout>
+
+                <!--消息-->
+                <RelativeLayout
+                    android:layout_width="@dimen/icon_main_size"
+                    android:layout_height="@dimen/icon_main_size"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginRight="10dp">
+
+                    <ImageView
+                        android:id="@+id/iv_app_message"
+                        android:layout_width="@dimen/icon_main_size"
+                        android:layout_height="@dimen/icon_main_size"
+                        android:layout_gravity="center_vertical"
+                        android:padding="1dp"
+                        android:src="@mipmap/icon_message" />
+
+                    <TextView
+                        android:id="@+id/tv_app_message_count"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignEnd="@+id/iv_app_message"
+                        android:text="1"
+                        android:textColor="@color/red"
+                        android:textSize="14sp" />
+                </RelativeLayout>
+                <!--右侧二维码扫描-->
                 <ImageView
-                    android:layout_width="12dp"
-                    android:layout_height="12dp"
-                    android:layout_marginLeft="10dp"
-                    android:src="@mipmap/search" />
-
-                <TextView
-                    android:id="@+id/et_search"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_gravity="center"
-                    android:layout_marginLeft="10dp"
-                    android:background="@null"
-                    android:gravity="center_vertical|left"
-                    android:text="搜索"
-                    android:textColor="@color/grey"
-                    android:textSize="@dimen/font_second_size" />
+                    android:id="@+id/iv_scan_code"
+                    android:layout_width="@dimen/icon_main_size"
+                    android:layout_height="@dimen/icon_main_size"
+                    android:layout_gravity="center_vertical"
+                    android:padding="3dp"
+                    android:src="@mipmap/icon_scan_code" />
 
             </LinearLayout>
 
-            <!--右侧二维码扫描-->
-            <ImageView
-                android:id="@+id/iv_scan_code"
-                android:layout_width="@dimen/icon_main_size"
-                android:layout_height="@dimen/icon_main_size"
-                android:padding="2dp"
-                android:layout_gravity="center_vertical"
-                android:src="@mipmap/icon_scan_code" />
-
-        </LinearLayout>
-
-    </androidx.appcompat.widget.Toolbar>
+        </androidx.appcompat.widget.Toolbar>
+    </com.google.android.material.appbar.AppBarLayout>
 
     <androidx.core.widget.NestedScrollView
         android:id="@+id/scroll_view"
@@ -141,7 +164,7 @@
                         android:layout_height="40dp"
                         android:layout_gravity="center_horizontal"
                         android:layout_marginTop="10dp"
-                        android:background="@mipmap/application" />
+                        android:background="@mipmap/icon_app" />
 
                     <TextView
                         android:layout_width="match_parent"
@@ -165,7 +188,7 @@
                         android:layout_height="40dp"
                         android:layout_gravity="center_horizontal"
                         android:layout_marginTop="10dp"
-                        android:background="@mipmap/application" />
+                        android:background="@mipmap/icon_app" />
 
                     <TextView
                         android:layout_width="match_parent"
@@ -189,7 +212,31 @@
                         android:layout_height="40dp"
                         android:layout_gravity="center_horizontal"
                         android:layout_marginTop="10dp"
-                        android:background="@mipmap/application" />
+                        android:background="@mipmap/icon_app" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:gravity="center"
+                        android:text="健康码"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/font_third_size" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="80dp"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_marginTop="10dp"
+                        android:background="@mipmap/icon_app" />
 
                     <TextView
                         android:layout_width="match_parent"
@@ -213,31 +260,7 @@
                         android:layout_height="40dp"
                         android:layout_gravity="center_horizontal"
                         android:layout_marginTop="10dp"
-                        android:background="@mipmap/application" />
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="5dp"
-                        android:gravity="center"
-                        android:text="功能一"
-                        android:textColor="@color/black"
-                        android:textSize="@dimen/font_third_size" />
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="80dp"
-                    android:layout_weight="1"
-                    android:orientation="vertical">
-
-                    <ImageView
-                        android:layout_width="40dp"
-                        android:layout_height="40dp"
-                        android:layout_gravity="center_horizontal"
-                        android:layout_marginTop="10dp"
-                        android:background="@mipmap/application" />
+                        android:background="@mipmap/icon_app" />
 
                     <TextView
                         android:layout_width="match_parent"

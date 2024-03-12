@@ -13,6 +13,8 @@ import com.roydon.community.api.ApiConfig;
 import com.roydon.community.api.HttpCallback;
 import com.roydon.community.constants.Constants;
 import com.roydon.community.domain.vo.LoginResponse;
+import com.roydon.community.ui.dialog.WaitDialog;
+import com.roydon.library.BaseDialog;
 
 import java.util.HashMap;
 
@@ -45,6 +47,11 @@ public class LoginActivity extends BaseActivity {
         btnLogin.setOnClickListener(v -> {
             String username = etUsername.getText().toString().trim();
             String password = etPassword.getText().toString().trim();
+            // 等待对话框
+            final BaseDialog waitDialog = new WaitDialog.Builder(this)
+                    // 消息文本可以不用填写
+                    .setMessage(getString(R.string.login_loading))
+                    .showDialog();
             login(username, password);
         });
         tvToSmsLogin.setOnClickListener(v -> {
@@ -55,6 +62,12 @@ public class LoginActivity extends BaseActivity {
         });
     }
 
+    /**
+     * 账号密码登录
+     *
+     * @param username
+     * @param password
+     */
     private void login(String username, String password) {
         HashMap<String, Object> params = new HashMap<>();
         params.put("username", username);

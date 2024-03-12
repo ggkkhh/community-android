@@ -6,6 +6,8 @@
     <color name="teal_200">#FF03DAC5</color>
     <color name="teal_700">#FF018786</color>
 
+    <color name="window_background">#F4F4F4</color>
+
     <!-- 鲜明色 -->
     <color name="gold">#ffd700</color>
 
@@ -36,5 +38,43 @@
     <color name="divider">#80E8E7E7</color>
     <color name="fragment_background">#f2f2ff</color>
     <color name="activity_background">#f2f2ff</color>
+
+    <!-- App 样式中引用的颜色 -->
+    <color name="common_primary_color">@color/white</color>
+    <color name="common_primary_dark_color">@color/black</color>
+    <color name="common_accent_color">#5A8DDF</color>
+    <color name="common_window_background_color">#F4F4F4</color>
+    <color name="common_text_color">#333333</color>
+    <color name="common_text_hint_color">@color/panda</color>
+
+    <!-- 按钮按压时的颜色 -->
+    <color name="common_button_pressed_color">#AA1D70F6</color>
+    <!-- 支付按钮按压时的颜色 -->
+    <color name="pay_button_click_red">#FF1616</color>
+    <!--支付按钮正常颜色-->
+    <color name="pay_button_pink">#FF6699</color>
+    <!-- 按钮禁用时的颜色 -->
+    <color name="common_button_disable_color">#BBBBBB</color>
+    <!-- 分割线的颜色 -->
+    <color name="common_line_color">#ECECEC</color>
+    <!-- 矢量图标的颜色 -->
+    <color name="common_icon_color">#7C7C7C</color>
+
+    <!-- 对话框确认按钮的文本颜色 -->
+    <color name="common_confirm_text_color">#007AFF</color>
+    <!-- 对话框取消按钮的文本颜色 -->
+    <color name="common_cancel_text_color">#F44336</color>
+
+    <!-- 聊天框背景色 -->
+    <!--发送者-->
+    <color name="chat_box_sender_color">#0A8A43</color>
+    <!--   接收者-->
+
+    <!-- 按钮按压时的颜色 -->
+    <color name="colorButtonPressed">#1383F1</color>
+    <!-- 按钮禁用时的颜色 -->
+    <color name="colorButtonDisable">#BBBBBB</color>
+    <!-- 分割线的颜色 -->
+    <color name="colorLine">#ECECEC</color>
 
 </resources>

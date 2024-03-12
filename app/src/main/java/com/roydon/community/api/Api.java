@@ -156,6 +156,18 @@ public class Api {
                 if (StringUtil.isNotNull(response.body())) {
                     final String result = response.body().string();
                     Log.e("onSuccess", result);
+                    try {
+                        JSONObject jsonObject = new JSONObject(result);
+                        int code = (int) jsonObject.get("code");
+                        if (code == HttpStatus.UNAUTHORIZED) {
+                            // 登陆过期
+                            Intent in = new Intent(context, LoginActivity.class);
+                            in.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                            context.startActivity(in);
+                        }
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
                     callback.onSuccess(result);
                 }
             }
@@ -226,16 +238,6 @@ public class Api {
                 if (StringUtil.isNotNull(response.body())) {
                     final String result = response.body().string();
                     Log.e("onSuccess", result);
-                    try {
-                        JSONObject jsonObject = new JSONObject(result);
-                        int code = (int) jsonObject.get("code");
-                        if (code == HttpStatus.UNAUTHORIZED) {
-                            Intent in = new Intent(context, LoginActivity.class);
-                            context.startActivity(in);
-                        }
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
                     callback.onSuccess(result);
                 }
             }
@@ -273,7 +275,9 @@ public class Api {
                         JSONObject jsonObject = new JSONObject(result);
                         int code = (int) jsonObject.get("code");
                         if (code == HttpStatus.UNAUTHORIZED) {
+                            // 登陆过期
                             Intent in = new Intent(context, LoginActivity.class);
+                            in.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                             context.startActivity(in);
                         }
                     } catch (JSONException e) {

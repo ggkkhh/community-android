@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.roydon.community.R;
+import com.roydon.community.action.StatusAction;
 import com.roydon.community.activity.CartActivity;
 import com.roydon.community.activity.GoodDetailActivity;
 import com.roydon.community.adapter.MallGoodAdapter;
@@ -23,17 +24,18 @@ import com.roydon.community.api.ApiConfig;
 import com.roydon.community.api.HttpCallback;
 import com.roydon.community.domain.entity.MallGoodsVO;
 import com.roydon.community.domain.vo.MallGoodsRes;
+import com.roydon.community.widget.HintLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
-import com.scwang.smartrefresh.layout.listener.OnLoadMoreListener;
-import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-import scut.carson_ho.kawaii_loadingview.Kawaii_LoadingView;
+public class MallFragment extends BaseLazyLoadFragment implements StatusAction {
 
-public class MallFragment extends BaseLazyLoadFragment {
+    // handler
+    private static final int HANDLER_WHAT_EMPTY = 0;
+    private static final int HANDLER_WHAT_GOODS_LIST = 1;
 
     private RefreshLayout refreshLayout;
     private RecyclerView rvMallGoods;
@@ -42,14 +44,7 @@ public class MallFragment extends BaseLazyLoadFragment {
     private List<MallGoodsVO> goodsList = new ArrayList<>();
     private ImageView ivMallCart;
 
-    // 1. 定义控件变量
-    private Kawaii_LoadingView loadingView;
-
-    // 3. 使用动画（API说明）
-    // 3.1 启动动画
-//       Kawaii_LoadingView.startMoving();
-    // 3.2 停止动画
-//       Kawaii_LoadingView.stopMoving();
+    private HintLayout mHintLayout;
 
     @Override
     protected void lazyLoad() {
@@ -71,19 +66,13 @@ public class MallFragment extends BaseLazyLoadFragment {
 
             }
         });
-        refreshLayout.setOnRefreshListener(new OnRefreshListener() {
-            @Override
-            public void onRefresh(@NonNull RefreshLayout refreshLayout) {
-                pageNum = 1;
-                getMallGoodsList(true);
-            }
+        refreshLayout.setOnRefreshListener(refreshLayout -> {
+            pageNum = 1;
+            getMallGoodsList(true);
         });
-        refreshLayout.setOnLoadMoreListener(new OnLoadMoreListener() {
-            @Override
-            public void onLoadMore(@NonNull RefreshLayout refreshlayout) {
-                pageNum++;
-                getMallGoodsList(false);
-            }
+        refreshLayout.setOnLoadMoreListener(refreshlayout -> {
+            pageNum++;
+            getMallGoodsList(false);
         });
         getMallGoodsList(true);
         ivMallCart.setOnClickListener(v -> {
@@ -125,14 +114,22 @@ public class MallFragment extends BaseLazyLoadFragment {
         public void handleMessage(@NonNull Message msg) {
             super.handleMessage(msg);
             switch (msg.what) {
-                case 0:
+                case HANDLER_WHAT_EMPTY:
+                    showEmpty();
+                    break;
+                case HANDLER_WHAT_GOODS_LIST:
                     mallGoodAdapter.setData(goodsList);
                     mallGoodAdapter.notifyDataSetChanged();
-//                    loadingView.stopMoving();
+                    showComplete();
                     break;
             }
         }
     };
+
+    @Override
+    public HintLayout getHintLayout() {
+        return mHintLayout;
+    }
 
     @Override
     protected int initLayout() {
@@ -141,13 +138,11 @@ public class MallFragment extends BaseLazyLoadFragment {
 
     @Override
     protected void initView() {
-        // 2. 绑定控件
-//        loadingView = mRootView.findViewById(R.id.loadingView);
-//        loadingView.startMoving();
         rvMallGoods = mRootView.findViewById(R.id.rv_mall_goods);
         refreshLayout = mRootView.findViewById(R.id.rl_goods);
         ivMallCart = mRootView.findViewById(R.id.iv_mall_cart);
-
+        mHintLayout = mRootView.findViewById(R.id.hl_status_hint);
+        showLoading();
     }
 
     @Override
@@ -181,11 +176,11 @@ public class MallFragment extends BaseLazyLoadFragment {
                         } else {
                             goodsList.addAll(mallGoodsList);
                         }
-                        mHandler.sendEmptyMessage(0);
+                        mHandler.sendEmptyMessage(HANDLER_WHAT_GOODS_LIST);
                     } else {
                         if (isRefresh) {
                             Log.e("getMallGoodsList", "暂时无数据");
-//                            showShortToastSync("暂时无数据");
+                            mHandler.sendEmptyMessage(HANDLER_WHAT_EMPTY);
                         } else {
                             Log.e("getMallGoodsList", "没有更多数据");
                             showShortToastSync("没有更多数据");
@@ -201,6 +196,7 @@ public class MallFragment extends BaseLazyLoadFragment {
                 } else {
                     refreshLayout.finishLoadMore(true);
                 }
+                mHandler.sendEmptyMessage(HANDLER_WHAT_EMPTY);
             }
         });
     }

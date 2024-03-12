@@ -13,7 +13,6 @@ import android.os.Handler;
 import android.os.Message;
 import android.provider.MediaStore;
 import android.util.Log;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -44,6 +43,7 @@ import com.roydon.community.utils.string.TelephoneUtils;
 import com.roydon.community.view.CircleTransform;
 import com.roydon.community.view.DialogX;
 import com.roydon.community.widget.RoundImageView;
+import com.roydon.library.layout.SettingBar;
 import com.squareup.picasso.MemoryPolicy;
 import com.squareup.picasso.NetworkPolicy;
 import com.squareup.picasso.Picasso;
@@ -56,6 +56,7 @@ import java.util.HashMap;
 import java.util.Locale;
 
 public class UserInfoActivity extends BaseActivity {
+    private String TOOL_TITLE = "我的资料";
 
     // 页面传值常量
     private static final int TAKE_PHOTO = 100;
@@ -64,11 +65,6 @@ public class UserInfoActivity extends BaseActivity {
     // handler
     private static final int HANDLER_WHAT_USERINFO = 0;
     private static final int HANDLER_REFRESH_USERINFO = 1;
-
-    /**
-     * 顶部top-bar功能栏
-     */
-    private ImageView ivReturn;
 
     // 头像
     private LinearLayout llEditAvatar;
@@ -81,12 +77,14 @@ public class UserInfoActivity extends BaseActivity {
 
     private AppUser appUser;
 
-    private TextView tvUserId, tvUserName, tvNickName, tvRealName, tvPhonenumber, tvEmail, tvIdCard, tvSex, tvAge, tvIsTenant;
+    private SettingBar tvUserName,sbNickName;
+
+    private TextView  tvRealName, tvPhonenumber, tvEmail, tvIdCard, tvSex, tvAge, tvIsTenant;
 
     private String mCurrentPhotoPath;
 
     // 编辑组件
-    private LinearLayout llEditNickName, llEditRealName, llEditPhonenumber, llEditEmail;
+    private LinearLayout  llEditRealName, llEditPhonenumber, llEditEmail;
 
     @Override
     protected int initLayout() {
@@ -113,14 +111,12 @@ public class UserInfoActivity extends BaseActivity {
 
     @Override
     protected void initView() {
-        ivReturn = findViewById(R.id.iv_return);
-
+        initToolBar(TOOL_TITLE);
         llEditAvatar = findViewById(R.id.ll_edit_avatar);
         // 用户头像
         riUserAvatar = findViewById(R.id.ri_user_avatar);
-        tvUserId = findViewById(R.id.tv_user_id);
         tvUserName = findViewById(R.id.tv_user_name);
-        tvNickName = findViewById(R.id.tv_nick_name);
+        sbNickName = findViewById(R.id.sb_nick_name);
         tvRealName = findViewById(R.id.tv_real_name);
         tvPhonenumber = findViewById(R.id.tv_phonenumber);
         tvEmail = findViewById(R.id.tv_email);
@@ -130,7 +126,7 @@ public class UserInfoActivity extends BaseActivity {
         tvIsTenant = findViewById(R.id.tv_is_tenant);
 
         // 编辑组件
-        llEditNickName = findViewById(R.id.ll_edit_nick_name);
+//        llEditNickName = findViewById(R.id.ll_edit_nick_name);
         llEditRealName = findViewById(R.id.ll_edit_real_name);
         llEditPhonenumber = findViewById(R.id.ll_edit_phonenumber);
         llEditEmail = findViewById(R.id.ll_edit_email);
@@ -139,15 +135,12 @@ public class UserInfoActivity extends BaseActivity {
     @Override
     protected void initData() {
         getUserInfo();
-        ivReturn.setOnClickListener(v -> {
-            finish();
-        });
         // 头像点击事件
-        llEditAvatar.setOnClickListener(v -> {
+        riUserAvatar.setOnClickListener(v -> {
             showSelectDialog();
         });
         // 昵称点击编辑
-        llEditNickName.setOnClickListener(v -> {
+        sbNickName.setOnClickListener(v -> {
             String dialogTitle = "编辑昵称";
             DialogX.showEditTextDialog(this, dialogTitle, appUser.getNickName(), new OnConfirmDialogClickListener() {
                 @Override
@@ -231,11 +224,14 @@ public class UserInfoActivity extends BaseActivity {
     private void showUserInfo(AppUser appUser) {
         if (appUser.getAvatar() != null && !appUser.getAvatar().equals("")) {
             // 禁止Picasso缓存用户头像
-            Picasso.with(this).load(appUser.getAvatar()).transform(new CircleTransform()).memoryPolicy(MemoryPolicy.NO_CACHE).networkPolicy(NetworkPolicy.NO_CACHE).into(riUserAvatar);
+            Picasso.with(this).load(appUser.getAvatar())
+                    .transform(new CircleTransform())
+                    .memoryPolicy(MemoryPolicy.NO_CACHE)
+                    .networkPolicy(NetworkPolicy.NO_CACHE)
+                    .into(riUserAvatar);
         }
-        tvUserId.setText(appUser.getUserId() + "");
-        tvUserName.setText(appUser.getUserName());
-        tvNickName.setText(appUser.getNickName());
+        tvUserName.setRightText(appUser.getUserName() + " : " + appUser.getUserId());
+        sbNickName.setRightText(appUser.getNickName());
         tvRealName.setText(appUser.getRealName());
         tvPhonenumber.setText(appUser.getPhonenumber());
         tvEmail.setText(appUser.getEmail());
@@ -416,8 +412,6 @@ public class UserInfoActivity extends BaseActivity {
         // 创建一个唯一的文件名
         String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss", Locale.getDefault()).format(new Date());
         String imageFileName = timeStamp + "_";
-
-        //
 
         // 获取保存照片的目录创建文件
         File imageFile = File.createTempFile(imageFileName, ".jpg", getExternalFilesDir(Environment.DIRECTORY_PICTURES));

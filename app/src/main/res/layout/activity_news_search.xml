@@ -5,21 +5,19 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/fragment_background"
-    android:fitsSystemWindows="true"
     android:orientation="vertical"
     tools:context=".activity.NewsSearchActivity">
 
-    <LinearLayout
+    <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:background="@color/element"
+        android:fitsSystemWindows="true">
 
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
-            android:layout_height="52dp"
-            android:background="@color/element"
-            android:fitsSystemWindows="false"
+            android:layout_height="@dimen/toolbar_height"
             app:contentInsetStart="0dp"
             app:popupTheme="@style/AppTheme.PopupOverlay"
             app:title="">
@@ -58,8 +56,8 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
-                        android:background="@null"
                         android:layout_weight="1"
+                        android:background="@null"
                         android:completionThreshold="1"
                         android:dropDownWidth="200dp"
                         android:dropDownHorizontalOffset="5dp"
@@ -93,12 +91,12 @@
         </androidx.appcompat.widget.Toolbar>
 
 
-    </LinearLayout>
+    </com.google.android.material.appbar.AppBarLayout>
 
-    <LinearLayout
+    <com.roydon.community.widget.HintLayout
+        android:id="@+id/hl_status_hint"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:layout_height="match_parent">
 
         <com.scwang.smartrefresh.layout.SmartRefreshLayout
             android:id="@+id/refreshLayout"
@@ -106,24 +104,20 @@
             android:layout_height="match_parent"
             android:background="@color/fragment_background">
 
-            <RelativeLayout
+            <com.scwang.smartrefresh.header.MaterialHeader
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical">
+                android:layout_height="wrap_content" />
 
-                <ProgressBar
-                    android:id="@+id/loading_spinner"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_centerInParent="true"
-                    android:layout_gravity="center" />
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recyclerView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
 
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/recyclerView"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent" />
-            </RelativeLayout>
+            <com.scwang.smartrefresh.layout.footer.BallPulseFooter
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
         </com.scwang.smartrefresh.layout.SmartRefreshLayout>
-    </LinearLayout>
+    </com.roydon.community.widget.HintLayout>
 
 </LinearLayout>

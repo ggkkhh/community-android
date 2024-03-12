@@ -20,9 +20,11 @@ import com.flyco.tablayout.SlidingTabLayout;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.roydon.community.R;
+import com.roydon.community.activity.AppMessageActivity;
 import com.roydon.community.activity.NewsDetailActivity;
 import com.roydon.community.activity.NewsSearchActivity;
 import com.roydon.community.activity.QrCodeScanActivity;
+import com.roydon.community.activity.UserInfoActivity;
 import com.roydon.community.adapter.BannerAdapter;
 import com.roydon.community.adapter.NewsHotAdapter;
 import com.roydon.community.api.Api;
@@ -54,8 +56,8 @@ public class HomeFragment extends BaseFragment {
     private ViewPager viewPager;
     private RefreshLayout refreshLayout;
     private SobViewPager sobViewPager;
-    private ImageView picture, userAvatar, ivScanCode;
-    private TextView etSearch;
+    private ImageView picture, userAvatar, ivAppMessage,ivScanCode;
+    private TextView etSearch,tvAppMessageCount;
     private LinearLayout mDotLayout, funcOne;
     private LinearLayoutManager linearLayoutManager;
     private SlidingTabLayout slidingTabLayout;
@@ -90,6 +92,7 @@ public class HomeFragment extends BaseFragment {
                     // 设置用户缓存
                     SPUtils.putLong(CacheConstants.USERID, appUser.getUserId(), getContext());
                     SPUtils.putString(CacheConstants.USERNAME, appUser.getUserName(), getContext());
+                    SPUtils.putString(CacheConstants.USER_AVATAR, appUser.getAvatar(), getContext());
                     showUserInfo(appUser);
                     break;
             }
@@ -118,6 +121,9 @@ public class HomeFragment extends BaseFragment {
         etSearch = mRootView.findViewById(R.id.et_search);
         // 二维码扫描
         ivScanCode = mRootView.findViewById(R.id.iv_scan_code);
+        // app消息
+        ivAppMessage = mRootView.findViewById(R.id.iv_app_message);
+        tvAppMessageCount = mRootView.findViewById(R.id.tv_app_message_count);
         // 轮播图
         sobViewPager = mRootView.findViewById(R.id.sob_looper);
         funcOne = mRootView.findViewById(R.id.func_one);
@@ -138,6 +144,9 @@ public class HomeFragment extends BaseFragment {
         rvNewsHot.setLayoutManager(linearLayoutManager);
         newsHotAdapter = new NewsHotAdapter(getActivity());
         rvNewsHot.setAdapter(newsHotAdapter);
+        userAvatar.setOnClickListener(v -> {
+            navigateTo(UserInfoActivity.class);
+        });
         newsHotAdapter.setOnItemClickListener(new NewsHotAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(View view, int position) {
@@ -155,6 +164,9 @@ public class HomeFragment extends BaseFragment {
         getNewsHotList();
         etSearch.setOnClickListener(v -> {
             navigateTo(NewsSearchActivity.class);
+        });
+        ivAppMessage.setOnClickListener(v->{
+            navigateTo(AppMessageActivity.class);
         });
         ivScanCode.setOnClickListener(v -> {
             navigateTo(QrCodeScanActivity.class);
@@ -198,6 +210,11 @@ public class HomeFragment extends BaseFragment {
         }
 
     }
+
+    /**
+     * 获取消息通知个数
+     */
+
 
     /**
      * 轮播图集合
